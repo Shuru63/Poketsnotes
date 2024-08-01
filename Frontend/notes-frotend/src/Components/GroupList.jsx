@@ -25,10 +25,13 @@ const GroupList = () => {
     const toggleSidebar = () => {
         setShowbar(!showbar);
     };
-
+    const removeSidebar = (groupid) => {
+        setSelectedGroupId(groupid)
+        setShowbar(false);
+    };
     return (
         <div className='wholepage'>
-            <div className={` ${showbar ? 'grouplist' : 'grouplist-toggle'}`}>
+            <div className={`grouplist ${showbar ? '' : "grouplist-toggle"}`}>
                 <div className="group-list">
                     <div className='bar'><span class="material-symbols-outlined" onClick={toggleSidebar}>
                         menu
@@ -38,7 +41,7 @@ const GroupList = () => {
                         {groupList.length > 0 ? (
                             groupList.map(group => (
                                 <div key={group._id} className="group-item"
-                                    onClick={() => setSelectedGroupId(group._id)}>
+                                    onClick={() => removeSidebar(group._id)}>
                                     <div className='name-plate' style={{ backgroundColor: group.color, width: '45px', height: '45px', borderRadius: '50%' }}>{group.name.charAt(0)}</div>
                                     <div className='group-name'> <p>{group.name}</p>
                                     </div>
@@ -49,13 +52,14 @@ const GroupList = () => {
                             <p>No groups available.</p>
                         )}
                     </div>
+                    <div className='Create-group'>
+                        <button className='Create-group-btn' onClick={() => setShowPopup(true)}><span>&#43;</span></button>
+
+                        {showPopup && <Grouppage onClose={() => setShowPopup(false)} />}
+                    </div>
                 </div>
             </div>
-            <div className={` ${showbar ? 'notelist-toggle' : 'notelist'}`}><NotesList groupId={selectedGroupId} /></div> <div className='Create-group'>
-                <button className='Create-group-btn' onClick={() => setShowPopup(true)}><span>&#43;</span></button>
-
-                {showPopup && <Grouppage onClose={() => setShowPopup(false)} />}
-            </div>
+            <div className={`notelist ${showbar ? "notelist-toggle" : ' '}`}><NotesList groupId={selectedGroupId} toggleSidebar={toggleSidebar} /></div>
         </div>
     );
 };

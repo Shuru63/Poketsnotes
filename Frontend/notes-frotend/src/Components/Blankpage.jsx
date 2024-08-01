@@ -1,9 +1,13 @@
 import React from 'react'
 import img from '../vectorr-rw.png'
-const Blankpage = () => {
+const Blankpage = ({toggleSidebar}) => {
     return (
-        <div>
+        <div className='blank-bar'>
+            <div className='bar'><span class="material-symbols-outlined" onClick={toggleSidebar}>
+                        menu
+                    </span></div>
             <div className='blank-page'>
+            
                 <div className='blank-page-vector'>
                     <div className='vector'>
                         <img src={img} alt="" />

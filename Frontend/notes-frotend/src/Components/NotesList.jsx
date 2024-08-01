@@ -3,9 +3,9 @@ import axios from 'axios';
 import Notesform from './Notesform';
 import Blankpage from './Blankpage';
 import NotesHead from './NotesHead';
-const NotesList = ({ groupId }) => {
+const NotesList = ({ groupId,toggleSidebar }) => {
     const [notes, setNotes] = useState([]);
-    const [showbar, setShowbar] = useState(false);
+    
 
     const fetchNotes = async (groupId) => {
         try {
@@ -30,10 +30,8 @@ const NotesList = ({ groupId }) => {
         <div>
             {groupId ? (
                 <div className='notespage'>
-                    <div className='notebar'><span class="material-symbols-outlined" onClick={()=>setShowbar(true)}>
-                        menu
-                    </span></div>
-                    <NotesHead groupId={groupId}/>
+                    
+                   <div onClick={toggleSidebar}> <NotesHead groupId={groupId} /></div>
                     <div className='notes-content'>
                         <div className='notes-container'>
                         {notes.length > 0 ? (
@@ -54,7 +52,8 @@ const NotesList = ({ groupId }) => {
                 </div>
             ) : (
                 <div className='welcome-message'>
-                    <Blankpage />
+                    
+                    <Blankpage toggleSidebar={toggleSidebar} />
                 </div>
             )}
         </div>
