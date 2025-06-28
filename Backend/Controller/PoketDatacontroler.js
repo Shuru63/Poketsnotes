@@ -5,7 +5,7 @@ const createNote = async (req, res) => {
         const { groupId, content } = req.body;
         const note = new PoketData({ groupId, content });
         await note.save();
-        // hello
+        
         res.json(note);
     } catch (error) {
         res.status(500).json({ error: error.message });
